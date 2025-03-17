@@ -1,74 +1,83 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+// app/index.tsx
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+export default function Index() {
+  const router = useRouter();
 
-export default function HomeScreen() {
+  const handleNavigation = (section: string) => {
+    if (section === 'Explore Items') {
+      router.push('/explore');  // Navigate to the 'explore' page
+    } else if (section === 'Go to Cart') {
+      router.push('/cart');  // Navigate to the 'cart' page
+    } else {
+      console.log(`${section} clicked`);
+    }
+  };
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View style={styles.container}>
+      <View style={styles.navBar}>
+        <TouchableOpacity style={styles.navButton} onPress={() => handleNavigation('Explore Items')}>
+          <Text style={styles.navButtonText}>Explore Items</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} onPress={() => handleNavigation('Go to Cart')}>
+          <Text style={styles.navButtonText}>Go to Cart</Text>
+        </TouchableOpacity>
+      </View>
+
+      <Text style={styles.welcomeText}>Welcome to the Grocery App</Text>
+
+      <TouchableOpacity style={styles.startButton} onPress={() => console.log('Start Shopping Clicked')}>
+        <Text style={styles.buttonText}>Start Shopping</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    gap: 8,
+    backgroundColor: 'green',
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
+  navBar: {
+    flexDirection: 'row',
+    backgroundColor: 'red',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    width: '100%',
     position: 'absolute',
+    top: 0,
+    zIndex: 1,
+    justifyContent: 'space-around',
+  },
+  navButton: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+  },
+  navButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  welcomeText: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: 'white',
+    marginTop: 80,
+    marginBottom: 20,
+  },
+  startButton: {
+    backgroundColor: 'red',
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 10,
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
