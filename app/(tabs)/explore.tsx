@@ -1,36 +1,32 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Link } from 'expo-router'; // Import Link component
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
 
-export default function Explore() {
+export default function Onboarding() {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
-      {/* Navigation Bar */}
-      <View style={styles.navBar}>
-        <Link href="/explore" style={styles.navButton}>
-          <Text style={styles.navButtonText}>Check out Our Items</Text>
-        </Link>
-        <Link href="/cart" style={styles.navButton}>
-          <Text style={styles.navButtonText}>Add To Your Cart</Text>
-        </Link>
-        <TouchableOpacity style={styles.navButton}>
-          <Text style={styles.navButtonText}>Payment</Text>
-        </TouchableOpacity>
+      <View style={styles.imagePlaceholder}>
       </View>
 
-      <Text style={styles.sectionTitle}>Choose a Section</Text>
-
-      <View style={styles.sectionButtonsContainer}>
-        {/* Section Buttons */}
-        <Link href="/vegetables" style={styles.sectionButton}>
-          <Text style={styles.sectionButtonText}>Vegetables / Fruits</Text>
-        </Link>
-        <Link href="/dailyessentials" style={styles.sectionButton}>
-          <Text style={styles.sectionButtonText}>Daily Essentials</Text>
-        </Link>
-        <TouchableOpacity style={styles.sectionButton}>
-          <Text style={styles.sectionButtonText}>Miscellaneous</Text>
+      <View style={styles.content}>
+        <Text style={styles.title}>Smart Shop{"\n"}Healthy Living</Text>
+        <Text style={styles.subtitle}>
+          Modern shopping solution focused on a healthy,{"\n"}
+          balanced lifestyle. We provide a variety of quality{"\n"}
+          support for your health needs.
+        </Text>
+\
+        <TouchableOpacity style={styles.button} >
+          <Text style={styles.buttonText}>Get Started</Text>
         </TouchableOpacity>
+
+        <Text style={styles.signupText}>
+          Don’t have an account?{" "}
+          <Text style={styles.signupLink} onPress={() => alert("Navigate to Sign Up")}>
+            Sign Up
+          </Text>
+        </Text>
       </View>
     </View>
   );
@@ -39,52 +35,54 @@ export default function Explore() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'green',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  navBar: {
-    flexDirection: 'row',
-    backgroundColor: 'red',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    width: '100%',
-    position: 'absolute',
-    top: 0,
-    zIndex: 1,
-    justifyContent: 'space-around',
+  imagePlaceholder: {
+    width: "100%",
+    height: "40%",
+    backgroundColor: "#d3d3d3",
+    borderRadius: 10,
   },
-  navButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+  content: {
+    width: "100%",
+    paddingHorizontal: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  navButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#4d7c47",
+    textAlign: "center",
+    marginTop: 20,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
-    marginBottom: 20,
+  subtitle: {
+    fontSize: 14,
+    color: "gray",
+    textAlign: "center",
+    marginVertical: 10,
   },
-  sectionButtonsContainer: {
-    width: '80%',
-    alignItems: 'center',
+  button: {
+    backgroundColor: "#7DA36A",
+    paddingVertical: 15,
+    paddingHorizontal: 50,
+    borderRadius: 10,
+    marginTop: 20,
   },
-  sectionButton: {
-    backgroundColor: 'red',
-    paddingVertical: 25,
-    paddingHorizontal: 60,
-    marginBottom: 20,
-    borderRadius: 12,
-    width: '100%',
-    alignItems: 'center',
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
-  sectionButtonText: {
-    fontSize: 24,
-    color: 'white',
-    fontWeight: 'bold',
+  signupText: {
+    marginTop: 15,
+    fontSize: 14,
+    color: "gray",
+  },
+  signupLink: {
+    color: "#4d7c47",
+    fontWeight: "bold",
   },
 });
-

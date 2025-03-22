@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { useCart } from '../contexts/cartcontexts'; // Import Cart Context
 
 export default function Cart() {
-  const { cartItems, totalPrice } = useCart(); // Get dynamic cart data
+  const { cartItems, totalPrice, removeFromCart } = useCart(); // Get dynamic cart data and remove function
 
   return (
     <View style={styles.container}>
@@ -17,6 +17,11 @@ export default function Cart() {
               <Text style={styles.itemDetails}>Price: ₹{item.price}</Text>
               <Text style={styles.itemDetails}>Quantity: {item.quantity}</Text>
               <Text style={styles.itemDetails}>Total: ₹{item.price * item.quantity}</Text>
+
+              {/* Remove from Cart Button */}
+              <TouchableOpacity onPress={() => removeFromCart(item.id)}>
+                <Text style={styles.removeButton}>Remove from Cart</Text>
+              </TouchableOpacity>
             </View>
           ))
         ) : (
@@ -72,5 +77,12 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     marginTop: 50,
+  },
+  removeButton: {
+    marginTop: 10,
+    color: 'red',
+    fontWeight: 'bold',
+    fontSize: 16,
+    textAlign: 'center',
   },
 });
